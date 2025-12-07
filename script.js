@@ -184,7 +184,7 @@ const heatHazeFragmentShader = `
         float wave2 = sin(uv.y * 25.0 - uTime * 3.5) * 0.3;
         
         // Very subtle shimmer with slight warm tint
-        float alpha = (0.5 + sin(uv.y * 20.0 + uTime * 4.0) * 0.3) * edgeFade;
+        float alpha = (0.1 + sin(uv.y * 20.0 + uTime * 4.0) * 0.5) * edgeFade;
         vec3 heatColor = vec3(1.0, 0.95, 0.85);
         
         gl_FragColor = vec4(heatColor, alpha);
