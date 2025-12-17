@@ -184,7 +184,7 @@ const heatHazeFragmentShader = `
         float wave2 = sin(uv.y * 25.0 - uTime * 3.5) * 0.3;
         
         // Very subtle shimmer with slight warm tint
-        float alpha = (0.1 + sin(uv.y * 20.0 + uTime * 4.0) * 0.5) * edgeFade;
+        float alpha = (0.06 + sin(uv.y * 20.0 + uTime * 4.0) * 0.02) * edgeFade;
         vec3 heatColor = vec3(1.0, 0.95, 0.85);
         
         gl_FragColor = vec4(heatColor, alpha);
@@ -203,19 +203,19 @@ const heatHazeMaterial = new THREE.ShaderMaterial({
     depthWrite: false
 });
 
-const heatHazeGeometry = new THREE.PlaneGeometry(35, 6);
+const heatHazeGeometry = new THREE.PlaneGeometry(6, 4);
 
-// Create 4 heat haze planes at the edges
+// Create 4 heat haze planes near the pyramid
 const heatHazePositions = [
-    { x: 10, z: 0, rotation: Math.PI / 2 },  // Right
-    { x: -10, z: 0, rotation: -Math.PI / 2 }, // Left
-    { x: 0, z: 10, rotation: 0 },            // Front
-    { x: 0, z: -10, rotation: Math.PI }      // Back
+    { x: 4, z: 0, rotation: Math.PI / 2 },  // Right
+    { x: -4, z: 0, rotation: -Math.PI / 2 }, // Left
+    { x: 0, z: 4, rotation: 0 },            // Front
+    { x: 0, z: -4, rotation: Math.PI }      // Back
 ];
 
 heatHazePositions.forEach(pos => {
     const heatHazeMesh = new THREE.Mesh(heatHazeGeometry, heatHazeMaterial);
-    heatHazeMesh.position.set(pos.x, 2, pos.z);
+    heatHazeMesh.position.set(pos.x, 1.5, pos.z);
     heatHazeMesh.rotation.y = pos.rotation;
     scene.add(heatHazeMesh);
 });
